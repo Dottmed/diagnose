@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="SlidingTabLayout">
+        <attr name="isWrapContent" format="boolean"/>
+    </declare-styleable>
+
+    <declare-styleable name="GFFloatingActionButton">
+        <attr name="fabColorPressed" format="color"/>
+        <attr name="fabColorNormal" format="color"/>
+        <attr name="fabIcon" format="reference"/>
+        <attr name="fabTitle" format="string"/>
+    </declare-styleable>
+
+    <declare-styleable name="HorizontalListView">
+        <attr name="dividerWidth" format="dimension" />
+        <attr name="android:divider" />
+        <attr name="android:requiresFadingEdge" />
+        <attr name="android:fadingEdgeLength" />
+    </declare-styleable>
+
+    <declare-styleable name="RecorderProgress">
+
+        <attr name="bf_progress_color" format="color"/>
+
+        <attr name="af_progress_color" format="color"/>
+
+        <attr name="max_recorder_time" format="integer"/>
+
+        <attr name="min_recorder_time" format="integer"/>
+
+    </declare-styleable>
+
+</resources>

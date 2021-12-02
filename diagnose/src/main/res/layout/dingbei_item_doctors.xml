@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ly_item"
+    android:layout_width="match_parent"
+    android:layout_height="102dp"
+    android:background="@drawable/sel_focus_green_white"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:focusable="true">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/img_avatar"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_centerVertical="true"
+        tools:src="@tools:sample/avatars"
+        />
+
+    <TextView
+        android:id="@+id/tx_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/bg_theme_r8"
+        android:clickable="false"
+        android:paddingLeft="4dp"
+        android:paddingTop="2dp"
+        android:paddingRight="4dp"
+        android:paddingBottom="2dp"
+        android:text="@string/offline"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        />
+
+    <TextView
+        android:id="@+id/tx_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        android:layout_toRightOf="@id/img_avatar"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/gray_text_light"
+        android:textSize="14sp"
+        tools:text="主治医师"
+        />
+
+    <TextView
+        android:id="@+id/tx_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/tx_desc"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@id/img_avatar"
+        android:textColor="@color/black_text"
+        android:textSize="16sp"
+        tools:text="曾医生"
+        />
+
+    <TextView
+        android:id="@+id/tx_tag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/tx_name"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@id/tx_name"
+        android:textColor="@color/gray_text_light"
+        android:textSize="14sp"
+        tools:text="妇科"
+        />
+
+    <TextView
+        android:id="@+id/tx_wait"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@id/img_avatar"
+        android:textColor="@color/gray_text_light"
+        android:textSize="14sp"
+        tools:text="10人候诊"
+        android:layout_below="@id/tx_desc"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_alignParentBottom="true"
+        android:background="@color/divider"/>
+
+</RelativeLayout>

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    android:orientation="vertical">
+
+    <com.dingbei.diagnose.rtc.ui.TRTCVideoViewLayout
+        android:id="@+id/ll_mainview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <ImageView
+        android:id="@+id/iv_float"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp"
+        android:visibility="gone"/>
+
+    <TableLayout
+        android:id="@+id/ll_control"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="4dp"
+        android:gravity="bottom"
+        android:stretchColumns="0,2,4,6">
+
+        <TableRow
+            android:layout_marginBottom="24dp">
+
+            <ImageView/>
+
+            <ImageButton
+                android:id="@+id/iv_mic"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:background="#0000"
+                android:src="@drawable/ic_rtc_audio"
+                android:focusable="true"
+                android:foreground="@drawable/sel_tv_focusable"/>
+
+            <ImageView/>
+
+            <ImageButton
+                android:id="@+id/iv_loudspeaker"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:background="#0000"
+                android:src="@drawable/ic_rtc_speaker"
+                android:focusable="true"
+                android:foreground="@drawable/sel_tv_focusable"/>
+
+            <ImageView/>
+
+            <ImageButton
+                android:id="@+id/iv_camera"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:background="#0000"
+                android:src="@drawable/ic_rtc_camera"
+                android:focusable="true"
+                android:foreground="@drawable/sel_tv_focusable"/>
+
+            <ImageView/>
+        </TableRow>
+
+        <TableRow>
+
+            <ImageView/>
+
+            <ImageButton
+                android:id="@+id/beauty_button"
+                android:layout_width="54dp"
+                android:layout_height="54dp"
+                android:layout_gravity="center"
+                android:background="#0000"
+                android:clickable="false"
+                android:src="@drawable/face_beauty_close"
+                android:visibility="invisible"/>
+
+            <ImageView/>
+
+            <ImageButton
+                android:id="@+id/iv_hang_up"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="#0000"
+                android:src="@drawable/close_phone"
+                android:focusable="true"
+                android:foreground="@drawable/sel_tv_focusable"/>
+
+            <ImageView/>
+
+            <ImageButton
+                android:id="@+id/iv_switch"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:background="#0000"
+                android:src="@drawable/ic_rtc_switch_front"
+                android:focusable="true"
+                android:foreground="@drawable/sel_tv_focusable"/>
+
+            <ImageView/>
+        </TableRow>
+
+    </TableLayout>
+
+    <Chronometer
+        android:id="@+id/timer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/ll_control"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="24dp"
+        android:format="%s"
+        android:textColor="@color/white"/>
+
+</RelativeLayout>

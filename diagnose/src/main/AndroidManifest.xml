@@ -1,0 +1,36 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.dingbei.diagnose">
+
+    <application
+        android:allowBackup="true"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:configChanges="keyboardHidden|screenSize|orientation">
+
+        <activity android:name="com.dingbei.diagnose.DoctorListActivity" />
+        <activity android:name="com.dingbei.diagnose.VideoPlayActivity" />
+        <activity android:name="com.dingbei.diagnose.VideoRecordActivity" />
+        <activity android:name="com.dingbei.diagnose.VideoSelectActivity" />
+        <activity android:name="com.dingbei.diagnose.ChatActivity" />
+        <activity android:name="com.dingbei.diagnose.OpinionActivity" />
+        <activity android:name="com.dingbei.diagnose.H5Activity" />
+        <activity android:name="com.dingbei.diagnose.WaitingActivity" />
+        <activity android:name="com.dingbei.diagnose.StartChatActivity"  android:launchMode="singleTop"/>
+
+        <activity android:name="com.dingbei.diagnose.rtc.activity.RTCRoomActivity" />
+        <activity android:name="com.dingbei.diagnose.rtc.activity.RTCRequestActivity"  android:launchMode="singleTop"/>
+
+        <activity android:name="com.dingbei.diagnose.gallery.PhotoSelectActivity" />
+        <activity android:name="com.dingbei.diagnose.gallery.PhotoEditActivity" />
+        <activity android:name="com.dingbei.diagnose.gallery.PhotoPreviewActivity" />
+        <activity android:name="com.dingbei.diagnose.gallery.BigImageViewerActivity" android:launchMode="singleTop"/>
+        <activity android:name="com.dingbei.diagnose.gallery.PhotoViewerActivity" android:launchMode="singleTop"/>
+
+        <!--websocket-->
+        <service android:name="com.dingbei.diagnose.websocket.WebSocketService"/>
+        <receiver android:name="com.dingbei.diagnose.websocket.NetworkChangedReceiver" />
+
+    </application>
+
+</manifest>

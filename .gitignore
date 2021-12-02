@@ -1,0 +1,42 @@
+/captures
+
+#built application files
+*.apk
+*.ap_
+
+# files for the dex VM
+*.dex
+
+# Android generated
+bin/
+gen/
+
+# Ant
+build.xml
+local.properties
+
+# Maven
+target/
+pom.xml.*
+release.properties
+
+# Eclipse
+.classpath
+.project
+.externalToolBuilders/
+
+# IntelliJ
+*.iml
+*.ipr
+*.iws
+.idea/
+send/
+
+# Mac
+.DS_Store
+
+# Ignore gradle files
+.gradle/
+build/
+
+keystore.properties

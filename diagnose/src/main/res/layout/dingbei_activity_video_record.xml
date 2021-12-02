@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/topbar"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/status_bar">
+
+        <ImageView
+            android:id="@+id/img_back"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_centerVertical="true"
+            android:paddingLeft="11dp"
+            android:paddingRight="11dp"
+            android:src="@drawable/ic_back"
+            android:focusable="true"
+            android:foreground="@drawable/sel_tv_focusable"/>
+
+        <TextView
+            android:id="@+id/txt_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="拍摄视频"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"/>
+
+    </RelativeLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextureView
+            android:id="@+id/surface_view"
+            android:layout_width="match_parent"
+            android:layout_height="480dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="360dp">
+
+                <RelativeLayout
+                    android:id="@+id/layout_count_down"
+                    android:layout_width="115dp"
+                    android:layout_height="115dp"
+                    android:layout_centerInParent="true"
+                    android:background="#80000000"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/text_count_down"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:textColor="@color/white"
+                        android:textSize="42sp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="33dp"
+                        android:text="倒计时"
+                        android:textColor="@color/white"
+                        android:textSize="15sp"/>
+
+
+                </RelativeLayout>
+
+                <com.dingbei.diagnose.view.RecorderProgress
+                    android:id="@+id/progress_record"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_alignParentBottom="true"
+                    app:af_progress_color="@color/progress"
+                    app:bf_progress_color="@color/progress"
+                    app:max_recorder_time="60900"
+                    app:min_recorder_time="2000"
+                    />
+
+            </RelativeLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="bottom"
+                android:background="@color/status_bar">
+
+                <ImageView
+                    android:id="@+id/img_capture"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_record_start"
+                    android:focusable="true"
+                    android:foreground="@drawable/sel_tv_focusable"/>
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+</LinearLayout>

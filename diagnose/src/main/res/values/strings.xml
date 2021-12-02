@@ -1,0 +1,61 @@
+<resources>
+    <string name="app_name">RTC</string>
+
+    <string name="connecting_to">正在连接: %1$s</string>
+    <string name="connected_to_room">连接成功</string>
+    <string name="channel_error_title">连接错误</string>
+    <string name="ok">OK</string>
+    <string name="reconnecting_to_room">正在重连……</string>
+    <string name="log_text"> userId: %1$s\nfps: %2$d\nvideo bitrate: %3$d kbps\naudio bitrate: %4$d kbps\nvideo packet loss rate: %5$d%%\naudio packet loss rate: %6$d%%\nresolution: %7$d x %8$d </string>
+    <string name="kicked_by_admin">您被管理员踢出房间！！！</string>
+    <string name="kickout_tips">确定要踢出 %1$s 这个用户吗？</string>
+    <string name="positive_dialog_tips">确定</string>
+    <string name="negative_dialog_tips">取消</string>
+    <string name="confirm_exit">确定放弃编辑？</string>
+    <string name="socket_error_connect">错误：未连接或连接已断开</string>
+    <string name="socket_error_bind">错误：服务未绑定或绑定失败</string>
+    <string name="socket_error_init">错误：初始化未完成</string>
+    <string name="socket_error_other">错误：code值不正确</string>
+    <string name="current_version">当前版本</string>
+    <string name="confirm_exit_remote">确定退出问转诊？</string>
+    <string name="confirm_exit_prescription">处方未保存，是否需要退出？</string>
+    <string name="reject_rtc">拒绝了视频会话</string>
+    <string name="online">在线</string>
+    <string name="offline">离线</string>
+
+    <string name="gallery">手机相册</string>
+    <string name="all_photo">全部图片</string>
+    <string name="selected">已选(%1$s/%2$s)</string>
+    <string name="folder_photo_size">共%1$d张</string>
+    <string name="photo_edit">图片编辑</string>
+    <string name="photo_crop">图片裁剪</string>
+    <string name="crop_suc">裁剪成功</string>
+    <string name="crop_fail">裁剪失败</string>
+    <string name="no_photo">无图片</string>
+    <string name="waiting">请稍等…</string>
+    <string name="select_max_tips">已达到最大选择数量</string>
+    <string name="empty_sdcard">没有SD卡</string>
+    <string name="open_gallery_fail">相册初始化失败!</string>
+    <string name="take_photo_fail">拍照失败</string>
+    <string name="saving">正在保存照片…</string>
+    <string name="please_reopen_gf">请重新打开图片浏览器</string>
+    <string name="edit_letoff_photo_format">不支持的图片格式</string>
+    <string name="photo_list_empty">获取图片失败!</string>
+    <string name="preview">预览</string>
+    <string name="permissions_tips_gallery">这个App请求访问你的相册</string>
+    <string name="permissions_denied_tips">无法获取图片</string>
+
+    <string name="permission_audio">需要您开启麦克风权限</string>
+    <string name="permission_camera">需要您开启相机权限</string>
+    <string name="permission_media">需要您开启相机、麦克风等权限</string>
+    <string name="permission_storage">需要您开启储存权限</string>
+    <string name="permission_phone">需要您开启获取手机状态权限</string>
+    <string name="permission_call">需要您开启拨打电话权限</string>
+    <string name="permission_denied">您没有授予相应权限</string>
+    <string name="send">发送</string>
+    <string name="preview_photo">预览</string>
+    <string name="clear">清空</string>
+    <string name="select">选择</string>
+    <string name="str_tag_pos">POS</string>
+    
+</resources>

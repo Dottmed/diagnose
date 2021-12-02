@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/ly_function"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp">
+
+        <TextView
+            android:id="@+id/tx_pictures"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/ic_chat_pictures"
+            android:drawablePadding="8dp"
+            android:gravity="center_horizontal"
+            android:text="照片"
+            android:textColor="#808080"
+            android:textSize="12sp"
+            android:foreground="@drawable/sel_tv_focusable"
+            />
+
+        <TextView
+            android:id="@+id/tx_video"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/ic_chat_select_video"
+            android:drawablePadding="8dp"
+            android:gravity="center_horizontal"
+            android:text="视频"
+            android:textColor="#808080"
+            android:textSize="12sp"
+            android:foreground="@drawable/sel_tv_focusable"
+            />
+
+        <TextView
+            android:id="@+id/tx_rtc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/ic_chat_rtc"
+            android:drawablePadding="8dp"
+            android:gravity="center_horizontal"
+            android:text="视频通话"
+            android:textColor="#808080"
+            android:textSize="12sp"
+            android:foreground="@drawable/sel_tv_focusable"
+            />
+
+        <TextView
+            android:id="@+id/tx_ecg"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/ic_chat_ecg"
+            android:drawablePadding="8dp"
+            android:gravity="center_horizontal"
+            android:textColor="#808080"
+            android:textSize="12sp"
+            android:visibility="invisible"
+            android:foreground="@drawable/sel_tv_focusable"
+            />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/divider"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_tag_dingbei"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginBottom="10dp"/>
+
+</FrameLayout>

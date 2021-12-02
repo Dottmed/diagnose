@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:id="@+id/ly_outside"
+             android:layout_width="match_parent"
+             android:background="@color/black_tran40"
+             android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/ly_pop"
+        android:layout_width="match_parent"
+        android:layout_height="248dp"
+        android:layout_gravity="bottom"
+        android:background="#f5f5f5"
+        android:clickable="true"
+        android:focusable="true">
+
+        <ImageView
+            android:id="@+id/img_wave1"
+            android:layout_width="81dp"
+            android:layout_height="81dp"
+            android:background="@drawable/bg_circle_theme"
+            android:layout_centerInParent="true"
+            />
+
+        <ImageView
+            android:id="@+id/img_wave2"
+            android:layout_width="81dp"
+            android:layout_height="81dp"
+            android:background="@drawable/bg_circle_theme"
+            android:layout_centerInParent="true"
+            />
+
+        <ImageView
+            android:id="@+id/img_wave3"
+            android:layout_width="81dp"
+            android:layout_height="81dp"
+            android:background="@drawable/bg_circle_theme"
+            android:layout_centerInParent="true"
+            />
+
+        <ImageView
+            android:id="@+id/img_record"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src="@drawable/ic_voice_record"
+            />
+
+        <TextView
+            android:id="@+id/tx_record_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="35dp"
+            android:text="按下说话"
+            android:textColor="@color/gray_text"
+            android:textSize="14sp"
+            />
+
+        <TextView
+            android:id="@+id/tx_record_second"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="35dp"
+            android:text="0''"
+            android:textColor="@color/black_text"
+            android:textSize="14sp"
+            />
+    </RelativeLayout>
+
+</FrameLayout>

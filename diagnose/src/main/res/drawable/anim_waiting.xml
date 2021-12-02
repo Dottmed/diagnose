@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/waiting1" android:duration="150"/>
+    <item android:drawable="@drawable/waiting2" android:duration="150"/>
+    <item android:drawable="@drawable/waiting3" android:duration="150"/>
+    <item android:drawable="@drawable/waiting4" android:duration="150"/>
+    <item android:drawable="@drawable/waiting5" android:duration="150"/>
+    <item android:drawable="@drawable/waiting6" android:duration="150"/>
+    <item android:drawable="@drawable/waiting7" android:duration="150"/>
+    <item android:drawable="@drawable/waiting8" android:duration="150"/>
+    <item android:drawable="@drawable/waiting9" android:duration="150"/>
+    <item android:drawable="@drawable/waiting10" android:duration="150"/>
+    <item android:drawable="@drawable/waiting11" android:duration="150"/>
+    <item android:drawable="@drawable/waiting12" android:duration="150"/>
+    <item android:drawable="@drawable/waiting13" android:duration="150"/>
+</animation-list>
