@@ -20,11 +20,17 @@ import com.dingbei.diagnose.http.BaseCallback;
 import com.dingbei.diagnose.http.ErrorBean;
 import com.dingbei.diagnose.http.HttpParams;
 import com.dingbei.diagnose.http.HttpUtil;
+import com.dingbei.diagnose.message.MessageEvent;
+import com.dingbei.diagnose.message.MessageType;
 import com.dingbei.diagnose.utils.DiagnoseUtil;
 import com.dingbei.diagnose.utils.ImageLoadUtil;
 import com.dingbei.diagnose.view.recyc.CommonAdapter;
 import com.dingbei.diagnose.view.recyc.EmptyWrapper;
 import com.dingbei.diagnose.view.recyc.ViewHolder;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 
@@ -37,6 +43,7 @@ import java.util.ArrayList;
 public class DoctorListFragment extends BaseFragment {
 
     private View mView;
+    private String mHospitalId;
     private String mDepartmentId;
     private HttpParams mParams;
     private ArrayList<DoctorListBean.ResultBean> mList;
@@ -51,6 +58,7 @@ public class DoctorListFragment extends BaseFragment {
     protected View onCreatingView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Bundle bundle = getArguments();
         if(bundle != null) {
+            mHospitalId = bundle.getString("hospital");
             mDepartmentId = bundle.getString("department");
             mPatientId = bundle.getString("patient");
             mInquiryNo = bundle.getString("inquiry_no");
@@ -60,10 +68,15 @@ public class DoctorListFragment extends BaseFragment {
         initView();
 
         mParams = new HttpParams();
-        if(!"0".equals(mDepartmentId)) { //0是全部 不传
+        if(!TextUtils.isEmpty(mHospitalId)) {
+            mParams.put("hospital", mHospitalId);
+        }
+        if(!"0".equals(mDepartmentId) && !TextUtils.isEmpty(mDepartmentId)) { //0是全部 不传
             mParams.put("department", mDepartmentId);
         }
         getData();
+
+        EventBus.getDefault().register(this);
 
         return mView;
     }
@@ -159,12 +172,18 @@ public class DoctorListFragment extends BaseFragment {
         });
     }
 
-    public void filter(String tag) {
-        if("0".equals(tag)) {
+    public void filter(String hospital, String department) {
+        if(TextUtils.isEmpty(hospital)) {
+            mParams.remove("hospital");
+        }else {
+            mParams.put("hospital", hospital);
+        }
+
+        if(TextUtils.isEmpty(department) || "0".equals(department)) {
             //0是全部 不传
             mParams.remove("department");
         }else {
-            mParams.put("department", tag);
+            mParams.put("department", department);
         }
 
         onRefresh();
@@ -219,4 +238,18 @@ public class DoctorListFragment extends BaseFragment {
         });
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(MessageEvent message) {
+        //刷新医院
+        if (MessageType.REFRESH_HOSPITAL.equals(message.getMessage())){
+            mParams.put("hospital", message.getExtra());
+            onRefresh();
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroy();
+    }
 }

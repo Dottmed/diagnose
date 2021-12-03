@@ -12,4 +12,7 @@ public interface MessageType {
     String RTC_CANCEL_BY_LAUNCHER = "rtc_cancel_by_launcher";
     //其他人拒绝了rtc请求
     String RTC_REJECT = "rtc_reject";
+
+    //刷新医院下的医生
+    String REFRESH_HOSPITAL = "refresh_hospital";
 }

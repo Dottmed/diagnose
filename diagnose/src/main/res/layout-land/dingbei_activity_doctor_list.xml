@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
@@ -17,12 +18,36 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler_tag"
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:focusable="true"/>
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tx_hospital"
+                android:layout_width="match_parent"
+                android:layout_height="34dp"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="10dp"
+                android:background="@drawable/border_gray_r4"
+                android:focusable="true"
+                android:gravity="center_vertical"
+                android:hint="选择医院"
+                android:paddingLeft="6dp"
+                android:paddingRight="6dp"
+                android:textColor="@color/black_text"
+                android:textColorHint="@color/gray_text"
+                android:textSize="14sp"
+                tools:text="广东省第二人民医院" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_tag"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:focusable="true" />
+
+        </LinearLayout>
 
         <View
             android:layout_width="2dp"

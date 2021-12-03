@@ -11,17 +11,22 @@ import android.view.ViewTreeObserver;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONObject;
-import com.dingbei.diagnose.bean.DepartmentListBean;
-import com.dingbei.diagnose.bean.DoctorListBean;
+import com.dingbei.diagnose.bean.ConfigBean;
+import com.dingbei.diagnose.bean.DepartmentBean;
+import com.dingbei.diagnose.bean.HospitalBean;
 import com.dingbei.diagnose.bean.SignBean;
 import com.dingbei.diagnose.http.BaseCallback;
 import com.dingbei.diagnose.http.ErrorBean;
 import com.dingbei.diagnose.http.HttpUtil;
+import com.dingbei.diagnose.message.MessageEvent;
+import com.dingbei.diagnose.message.MessageType;
+import com.dingbei.diagnose.view.HospitalPop;
 import com.dingbei.diagnose.view.SlidingTabLayout;
 import com.dingbei.diagnose.view.recyc.CommonAdapter;
-import com.dingbei.diagnose.view.recyc.EmptyWrapper;
 import com.dingbei.diagnose.view.recyc.ViewHolder;
 import com.dingbei.diagnose.view.viewpager.TabFragmentPagerAdapter;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,15 +46,16 @@ public class DoctorListActivity extends BaseAutoActivity {
     private SignBean mSign;
     private boolean mIsLand;
     private RecyclerView mRecycler_tag;
-    private ArrayList<DepartmentListBean.ResultsBean> mTagList;
-    private CommonAdapter<DepartmentListBean.ResultsBean> mTagAdapter;
+    private ArrayList<DepartmentBean> mTagList;
+    private CommonAdapter<DepartmentBean> mTagAdapter;
     private int mSelectedTag;
-    private RecyclerView mRecycler;
-    private ArrayList<DoctorListBean.ResultBean> mList;
-    private EmptyWrapper mAdapter;
     private DoctorListFragment mFragment;
     private LinearLayoutManager tagLayoutManager;
     private View mImgBack;
+    private TextView mTx_hospital;
+    private String mHospital;
+    private String mDepartment;
+    private HospitalPop mHospitalPop;
 
     @Override
     protected int setContentViewID() {
@@ -72,6 +78,23 @@ public class DoctorListActivity extends BaseAutoActivity {
         setBack();
         setTitle("选择医生");
 
+        mTx_hospital = findViewById(R.id.tx_hospital);
+        mTx_hospital.setOnClickListener(v -> {
+            mHospitalPop.showAtLocation(mTx_hospital);
+        });
+
+        mHospitalPop = new HospitalPop(this, (name, id) -> {
+            mTx_hospital.setText(name);
+            mHospital = id;
+            if(mIsLand) {
+                mFragment.filter(mHospital, mDepartment);
+            }else {
+                MessageEvent event = new MessageEvent(MessageType.REFRESH_HOSPITAL);
+                event.setExtra(mHospital);
+                EventBus.getDefault().post(event);
+            }
+        });
+
         if(mIsLand) {
             mImgBack = findViewById(R.id.img_back);
             mRecycler_tag = findViewById(R.id.recycler_tag);
@@ -81,11 +104,6 @@ public class DoctorListActivity extends BaseAutoActivity {
             mRecycler_tag.setHasFixedSize(false);
             setTagAdapter();
 
-            mFragment = new DoctorListFragment();
-            mFragment.setArguments(getBundle("0"));
-            getSupportFragmentManager().beginTransaction().add(R.id.ly_container, mFragment, "doctors")
-                    .commitAllowingStateLoss();
-
         } else {
             mViewPager = findViewById(R.id.viewpager);
             mSlidingTabs = findViewById(R.id.sliding_tabs);
@@ -94,9 +112,9 @@ public class DoctorListActivity extends BaseAutoActivity {
 
     private void setTagAdapter() {
         mTagList = new ArrayList<>();
-        mTagAdapter = new CommonAdapter<DepartmentListBean.ResultsBean>(this, R.layout.dingbei_item_tags, mTagList) {
+        mTagAdapter = new CommonAdapter<DepartmentBean>(this, R.layout.dingbei_item_tags, mTagList) {
             @Override
-            protected void convert(ViewHolder holder, final DepartmentListBean.ResultsBean bean, final int position) {
+            protected void convert(ViewHolder holder, final DepartmentBean bean, final int position) {
                 TextView tx_name = holder.getView(R.id.tx_name);
                 tx_name.setText(bean.getName());
 
@@ -107,7 +125,9 @@ public class DoctorListActivity extends BaseAutoActivity {
                     public void onClick(View v) {
                         mSelectedTag = position;
                         notifyDataSetChanged();
-                        mFragment.filter(bean.getId());
+
+                        mDepartment = bean.getId();
+                        mFragment.filter(mHospital, mDepartment);
                     }
                 });
             }
@@ -116,28 +136,29 @@ public class DoctorListActivity extends BaseAutoActivity {
     }
 
     private void getTags() {
-        HttpUtil.get("refferal/get_quanke_doctors/", null, new BaseCallback() {
+        HttpUtil.get("sys/config/", null, new BaseCallback() {
             @Override
             public void onSuccess(String json) {
-                DepartmentListBean bean = JSONObject.parseObject(json, DepartmentListBean.class);
-                List<DepartmentListBean.ResultsBean> results = bean.getResults();
-                DepartmentListBean.ResultsBean all = new DepartmentListBean.ResultsBean();
+                ConfigBean bean = JSONObject.parseObject(json, ConfigBean.class);
+
+                List<HospitalBean> hospitals = bean.getAll_hospital();
+                if(hospitals != null && hospitals.size() > 0) {
+                    HospitalBean hos = hospitals.get(0);
+                    mTx_hospital.setText(hos.getName());
+                    mHospital = hos.getId();
+                    mHospitalPop.setData(hospitals);
+                }
+
+                List<DepartmentBean> departments = bean.getDepartments();
+                DepartmentBean all = new DepartmentBean();
                 all.setName("全部");
                 all.setId("0");
-                results.add(0, all);
+                departments.add(0, all);
 
                 if(mIsLand) {
-                    mTagList.clear();
-                    mTagList.addAll(results);
-                    mTagAdapter.notifyDataSetChanged();
-                    mRecycler_tag.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-                        @Override
-                        public void onGlobalLayout() {
-                            refreshFocus();
-                        }
-                    });
+                    initTagsLand(departments);
                 } else {
-                    initTags(results);
+                    initTags(departments);
                 }
             }
 
@@ -148,10 +169,27 @@ public class DoctorListActivity extends BaseAutoActivity {
         });
     }
 
-    private void initTags(List<DepartmentListBean.ResultsBean> tags) {
+    private void initTagsLand(List<DepartmentBean> departments) {
+        mTagList.clear();
+        mTagList.addAll(departments);
+        mTagAdapter.notifyDataSetChanged();
+        mRecycler_tag.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                refreshFocus();
+            }
+        });
+
+        mFragment = new DoctorListFragment();
+        mFragment.setArguments(getBundle("0"));
+        getSupportFragmentManager().beginTransaction().add(R.id.ly_container, mFragment, "doctors")
+                .commitAllowingStateLoss();
+    }
+
+    private void initTags(List<DepartmentBean> tags) {
         TabFragmentPagerAdapter pagerAdapter = new TabFragmentPagerAdapter(getSupportFragmentManager(), this);
         for (int i = 0; i < tags.size(); i++) {
-            DepartmentListBean.ResultsBean tag = tags.get(i);
+            DepartmentBean tag = tags.get(i);
             pagerAdapter.addTab(tag.getName(), DoctorListFragment.class, getBundle(tag.getId()));
         }
         mViewPager.setAdapter(pagerAdapter);
@@ -170,6 +208,7 @@ public class DoctorListActivity extends BaseAutoActivity {
 
     private Bundle getBundle(String tag) {
         Bundle bundle = new Bundle();
+        bundle.putString("hospital", mHospital);
         bundle.putString("department", tag);
         bundle.putString("patient", mPatientId);
         bundle.putString("inquiry_no", mInquiryNo);
