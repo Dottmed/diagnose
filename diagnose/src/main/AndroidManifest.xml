@@ -17,6 +17,7 @@
         <activity android:name="com.dingbei.diagnose.H5Activity" />
         <activity android:name="com.dingbei.diagnose.WaitingActivity" />
         <activity android:name="com.dingbei.diagnose.StartChatActivity"  android:launchMode="singleTop"/>
+        <activity android:name="com.dingbei.diagnose.RemoteActivity"  />
 
         <activity android:name="com.dingbei.diagnose.rtc.activity.RTCRoomActivity" />
         <activity android:name="com.dingbei.diagnose.rtc.activity.RTCRequestActivity"  android:launchMode="singleTop"/>

@@ -8,6 +8,7 @@ public class PreferencesUtil {
     public static final String COOKIE_TOKEN_VALUE = "Cookie";
     public static final String COOKIE_TOKEN = "CookieAll";
     public static final String COOKIE_SESSION = "session";
+    public static final String API_ADDRESS = "api_address";
 
     private static String PREFERENCE_NAME;
     public static Context context; //全局的context

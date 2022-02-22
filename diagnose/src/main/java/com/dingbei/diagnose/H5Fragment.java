@@ -167,6 +167,11 @@ public class H5Fragment extends BaseFragment {
         });
     }
 
+    public void reload(String url) {
+        mUrl = url;
+        mWeb_detail.loadUrl(mUrl);
+    }
+
 
     public class WebAppInterface {
         Context mContext;

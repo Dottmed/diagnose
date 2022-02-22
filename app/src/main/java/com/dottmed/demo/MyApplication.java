@@ -17,6 +17,6 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        DiagnoseUtil.init(getApplicationContext(), "com.dottmed.demo.fileprovider", SN_TYPE, false);
+        DiagnoseUtil.init(getApplicationContext(), "com.dottmed.demo.fileprovider", SN_TYPE, true);
     }
 }

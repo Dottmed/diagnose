@@ -3,10 +3,12 @@ package com.dingbei.diagnose.utils;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.Keep;
+import android.text.TextUtils;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSONObject;
 import com.dingbei.diagnose.DoctorListActivity;
+import com.dingbei.diagnose.RemoteActivity;
 import com.dingbei.diagnose.bean.PatientBean;
 import com.dingbei.diagnose.bean.SignBean;
 import com.dingbei.diagnose.gallery.CoreConfig;
@@ -41,24 +43,29 @@ public class DiagnoseUtil {
         DiagnoseUtil.applicationContext = applicationContext;
         DiagnoseUtil.fileProvider = fileProvider;
         DiagnoseUtil.SN_TYPE = snType;
-        if(release) {
-            BaseHttp.HOST = BaseHttp.HOST_RELEASE;
-            BaseHttp.API = BaseHttp.API_RELEASE;
-            BaseHttp.SOCKET_URL = BaseHttp.SOCKET_RELEASE;
-        }
+//        if(release) {
+//            BaseHttp.HOST = BaseHttp.HOST_RELEASE;
+//            BaseHttp.API = BaseHttp.API_RELEASE;
+//            BaseHttp.SOCKET_URL = BaseHttp.SOCKET_RELEASE;
+//        }
 
         //开启socket
-        initSocket();
+//        initSocket();
 
         //创建缓存目录
-        createFile();
+//        createFile();
 
         //初始化工具类
         ToastUtil.init(applicationContext);
         PreferencesUtil.init(applicationContext, "dingbei");
+        String address = PreferencesUtil.getString(PreferencesUtil.API_ADDRESS);
+        if(!TextUtils.isEmpty(address)) {
+            //配置过地址就用新的
+            BaseHttp.API = address;
+        }
 
         //初始化相册
-        initGalleryfinal();
+//        initGalleryfinal();
     }
 
     private static void initSocket() {
@@ -99,22 +106,25 @@ public class DiagnoseUtil {
     @Keep
     public static void diagnose(final Context context, String app_key, final String inquiry_no,
                                 final String name, final String idno, final SignBean sign) {
-        HttpParams params = new HttpParams();
-        params.put("app_key", app_key);
-        params.put("inquiry_no", inquiry_no);
-        HttpUtil.post(BaseHttp.API + "cygzz/remote_diagnosis/", params, new BaseCallback() {
-            @Override
-            public void onSuccess(String json) {
-                JSONObject object = JSONObject.parseObject(json);
-                historyUrl = object.getString("medical_history_url");
-                getPatient(context, inquiry_no, idno, name, sign);
-            }
+//        HttpParams params = new HttpParams();
+//        params.put("app_key", app_key);
+//        params.put("inquiry_no", inquiry_no);
+//        HttpUtil.post(BaseHttp.API + "cygzz/remote_diagnosis/", params, new BaseCallback() {
+//            @Override
+//            public void onSuccess(String json) {
+//                JSONObject object = JSONObject.parseObject(json);
+//                historyUrl = object.getString("medical_history_url");
+//                getPatient(context, inquiry_no, idno, name, sign);
+//            }
+//
+//            @Override
+//            public void onError(ErrorBean error) {
+//                ToastUtil.show(error.getError(), Toast.LENGTH_SHORT);
+//            }
+//        });
 
-            @Override
-            public void onError(ErrorBean error) {
-                ToastUtil.show(error.getError(), Toast.LENGTH_SHORT);
-            }
-        });
+        String url = String.format("?idno=%s&name=%s", idno, name);
+        context.startActivity(new Intent(context, RemoteActivity.class).putExtra("url", url));
     }
 
     private static void getPatient(final Context context, final String inquiry_no, String idno, String name, final SignBean sign) {
