@@ -12,7 +12,7 @@ public class BaseHttp {
     public static String SOCKET_RELEASE = "wss://dbgd2h.dottmed.com:8976/chat/";
 
     public static String HOST = HOST_DEBUG;
-    public static String API = "https://jkhouse-dev.dottmed.com/jkh.html#/report/detail";
+    public static String API = "https://www.lzdbyl.com:8088/jkh.html#/report/detail";
     public static String SOCKET_URL = SOCKET_DEBUG;
 
 }
