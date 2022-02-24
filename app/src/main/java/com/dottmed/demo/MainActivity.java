@@ -13,6 +13,7 @@ public class MainActivity extends AppCompatActivity {
 
     private EditText mEd_id;
     private View mTxStart;
+    private EditText mEd_name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,13 +21,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mEd_id = findViewById(R.id.ed_id);
-        mEd_id.setText("15692694714");
+        mEd_id.setText("440513199405192410");
+        mEd_name = findViewById(R.id.ed_name);
+        mEd_name.setText("xxx");
+
         mTxStart = findViewById(R.id.tx_start);
         mTxStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DiagnoseUtil.diagnose(MainActivity.this, MyApplication.APP_KEY,
-                        mEd_id.getText().toString(), "张三", "440106199407076733", null);
+                        "", mEd_name.getText().toString(), mEd_id.getText().toString(), null);
             }
         });
 

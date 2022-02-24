@@ -12,17 +12,15 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.CookieManager;
-import android.webkit.CookieSyncManager;
 import android.webkit.JavascriptInterface;
+import android.webkit.JsResult;
+import android.webkit.PermissionRequest;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
-import com.dingbei.diagnose.http.BaseHttp;
-import com.dingbei.diagnose.utils.PreferencesUtil;
 
 
 /**
@@ -52,37 +50,32 @@ public class H5Fragment extends BaseFragment {
         mView_loading = mView.findViewById(R.id.view_loading);
 
         mWeb_detail = mView.findViewById(R.id.webView);
-        //mWeb_detail.setWebChromeClient(new WebChromeClient());
-        //mWeb_detail.setWebViewClient(new WebViewClient());
         mWeb_detail.setVerticalScrollBarEnabled(false); //垂直滚动条不显示
         mWeb_detail.setHorizontalScrollBarEnabled(false); //水平滚动条不显示
 
-        WebSettings mSettings = mWeb_detail.getSettings();
-        mSettings.setJavaScriptEnabled(true);
-        mSettings.setBuiltInZoomControls(false); //设置显示缩放按钮
-        mSettings.setAllowFileAccess(true); //允许访问文件
-        mSettings.setPluginState(WebSettings.PluginState.ON); //设置支持插件
-        mSettings.setJavaScriptCanOpenWindowsAutomatically(true); //设置js可以直接打开窗口
+        WebSettings settings = mWeb_detail.getSettings();
+        settings.setJavaScriptEnabled(true);
+        settings.setJavaScriptCanOpenWindowsAutomatically(true); //设置js可以直接打开窗口
         mWeb_detail.addJavascriptInterface(new WebAppInterface(getContext()), "JS2Android");
-        mSettings.setBlockNetworkImage(false); //解决图片不显示
-        //mSettings.setDomStorageEnabled(true); //适应Html5的一些方法
+
+        settings.setBuiltInZoomControls(true); //设置显示缩放按钮
+        settings.setSupportZoom(true); // 支持缩放
+        settings.setUseWideViewPort(true);
+        settings.setLoadWithOverviewMode(true);
+
+        settings.setAllowFileAccess(true); //允许访问文件
+        settings.setDefaultTextEncodingName("UTF-8");
+        settings.setAllowContentAccess(true); // 是否可访问Content Provider的资源，默认值 true
+        // 是否允许通过file url加载的Javascript读取本地文件，默认值 false
+        settings.setAllowFileAccessFromFileURLs(false);
+        // 是否允许通过file url加载的Javascript读取全部资源(包括文件,http,https)，默认值 false
+        settings.setAllowUniversalAccessFromFileURLs(false);
+
+        settings.setPluginState(WebSettings.PluginState.ON); //设置支持插件
+        settings.setBlockNetworkImage(false); //解决图片不显示
+        settings.setDomStorageEnabled(true); //适应Html5的一些方法
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            mSettings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW); //https跟http混用
-        }
-
-        //登录状态需要设置cookie
-        String token = PreferencesUtil.getString(PreferencesUtil.COOKIE_TOKEN);
-        String session = PreferencesUtil.getString(PreferencesUtil.COOKIE_SESSION);
-        CookieSyncManager.createInstance(getContext());
-        CookieManager cookieManager = CookieManager.getInstance();
-
-        if (!TextUtils.isEmpty(token) && !TextUtils.isEmpty(session)) {
-            /* delete old cookies */
-            cookieManager.removeSessionCookie();
-
-            cookieManager.setCookie(BaseHttp.HOST, token);
-            cookieManager.setCookie(BaseHttp.HOST, session);
-            CookieSyncManager.getInstance().sync();
+            settings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW); //https跟http混用
         }
     }
 
@@ -135,6 +128,24 @@ public class H5Fragment extends BaseFragment {
                         }
                     }
                 }
+
+                @Override
+                public boolean onJsAlert(WebView view, String url, String message, JsResult result) {
+                    result.confirm();
+                    return true;
+                }
+
+                @Override
+                public void onPermissionRequest(PermissionRequest request) {
+                    getActivity().runOnUiThread(() -> {
+                        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+                            //通过浏览器访问摄像头，同样也要申请权限
+                            request.grant(request.getResources());
+                            request.getOrigin();
+                        }
+                    });
+                }
+
             });
 
             mWeb_detail.setOnKeyListener(new View.OnKeyListener() {
@@ -170,6 +181,14 @@ public class H5Fragment extends BaseFragment {
     public void reload(String url) {
         mUrl = url;
         mWeb_detail.loadUrl(mUrl);
+    }
+
+    public void clearCache() {
+        mWeb_detail.clearCache(true);
+        mWeb_detail.freeMemory();
+        mWeb_detail.clearHistory();
+        mWeb_detail.clearFormData();
+        showMsg("清除成功");
     }
 
 
