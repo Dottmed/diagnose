@@ -84,9 +84,9 @@ public class RemoteActivity extends BaseAutoActivity {
         mFragment = new H5Fragment();
         Bundle bundle = new Bundle();
 //        String url = "https://dbdev.dottmed.com/dbchat/#/autologin?authentication_sn=c9523905-de1f-4b1f-ab8d-8e6a642136ee&detail=%7B%22name%22%3A%22xxx%22,%22gender%22%3Anull,%22mobile%22%3Anull,%22age%22%3A%22%22,%22idno%22%3A%22440513199405192410%22,%22id%22%3A6,%22height%22%3Anull,%22weight%22%3Anull,%22bmi%22%3Anull,%22temperature%22%3Anull,%22waist_line%22%3Anull,%22hip_line%22%3Anull,%22waist_hip_than%22%3Anull,%22sugar%22%3Anull,%22oxygen%22%3Anull,%22uric_acid%22%3Anull,%22tg%22%3Anull,%22tcho%22%3Anull,%22hdl%22%3Anull,%22ldl%22%3Anull,%22shrink_pressure%22%3Anull,%22diastole_pressure%22%3Anull,%22pulse_rate%22%3Anull%7D";
-        String url = "https://trtc-1252463788.file.myqcloud.com/web/demo/official-demo/index.html";
-        bundle.putString(H5Fragment.EX_URL, url);
-//        bundle.putString(H5Fragment.EX_URL, BaseHttp.API + mUrl);
+//        String url = "https://trtc-1252463788.file.myqcloud.com/web/demo/official-demo/index.html";
+//        bundle.putString(H5Fragment.EX_URL, url);
+        bundle.putString(H5Fragment.EX_URL, BaseHttp.API + mUrl);
         bundle.putBoolean(H5Fragment.HAS_TITLE, true);
         mFragment.setArguments(bundle);
         getSupportFragmentManager().beginTransaction().add(R.id.layout_container, mFragment, "h5")

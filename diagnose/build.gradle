@@ -69,4 +69,5 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
     implementation 'org.greenrobot:eventbus:3.0.0'
     implementation 'com.tencent.liteav:LiteAVSDK_TRTC:6.6.7458'
+    implementation 'com.tencent.tbs:tbssdk:44153'
 }

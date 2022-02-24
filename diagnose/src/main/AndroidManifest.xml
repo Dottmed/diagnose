@@ -32,6 +32,13 @@
         <service android:name="com.dingbei.diagnose.websocket.WebSocketService"/>
         <receiver android:name="com.dingbei.diagnose.websocket.NetworkChangedReceiver" />
 
+        <!--该Service仅在TBS内核首次Dex加载时触发并执行dex2oat任务，任务完成后自动结束。-->
+        <service
+            android:name="com.tencent.smtt.export.external.DexClassLoaderProviderService"
+            android:label="dexopt"
+            android:process=":dexopt" >
+        </service>
+
     </application>
 
 </manifest>

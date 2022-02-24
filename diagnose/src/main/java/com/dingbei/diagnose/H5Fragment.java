@@ -1,6 +1,5 @@
 package com.dingbei.diagnose;
 
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -12,14 +11,14 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.JavascriptInterface;
-import android.webkit.JsResult;
-import android.webkit.PermissionRequest;
-import android.webkit.WebChromeClient;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
+
+import com.tencent.smtt.export.external.interfaces.JsResult;
+import com.tencent.smtt.export.external.interfaces.PermissionRequest;
+import com.tencent.smtt.sdk.WebChromeClient;
+import com.tencent.smtt.sdk.WebSettings;
+import com.tencent.smtt.sdk.WebView;
+import com.tencent.smtt.sdk.WebViewClient;
 
 
 
@@ -56,7 +55,6 @@ public class H5Fragment extends BaseFragment {
         WebSettings settings = mWeb_detail.getSettings();
         settings.setJavaScriptEnabled(true);
         settings.setJavaScriptCanOpenWindowsAutomatically(true); //设置js可以直接打开窗口
-        mWeb_detail.addJavascriptInterface(new WebAppInterface(getContext()), "JS2Android");
 
         settings.setBuiltInZoomControls(true); //设置显示缩放按钮
         settings.setSupportZoom(true); // 支持缩放
@@ -75,7 +73,7 @@ public class H5Fragment extends BaseFragment {
         settings.setBlockNetworkImage(false); //解决图片不显示
         settings.setDomStorageEnabled(true); //适应Html5的一些方法
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            settings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW); //https跟http混用
+            settings.setMixedContentMode(0); //https跟http混用
         }
     }
 
@@ -189,24 +187,6 @@ public class H5Fragment extends BaseFragment {
         mWeb_detail.clearHistory();
         mWeb_detail.clearFormData();
         showMsg("清除成功");
-    }
-
-
-    public class WebAppInterface {
-        Context mContext;
-
-        /**
-         * Instantiate the interface and set the context
-         */
-        WebAppInterface(Context c) {
-            mContext = c;
-        }
-
-        @JavascriptInterface
-        public void goBack() {
-            setBack();
-        }
-
     }
 
 }

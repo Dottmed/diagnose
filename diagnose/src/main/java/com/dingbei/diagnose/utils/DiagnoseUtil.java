@@ -22,6 +22,10 @@ import com.dingbei.diagnose.http.ErrorBean;
 import com.dingbei.diagnose.http.HttpParams;
 import com.dingbei.diagnose.http.HttpUtil;
 import com.dingbei.diagnose.websocket.WebSocketSetting;
+import com.tencent.smtt.export.external.TbsCoreSettings;
+import com.tencent.smtt.sdk.QbSdk;
+
+import java.util.HashMap;
 
 /**
  * @author Dayo
@@ -66,6 +70,8 @@ public class DiagnoseUtil {
 
         //初始化相册
 //        initGalleryfinal();
+
+        initX5();
     }
 
     private static void initSocket() {
@@ -101,6 +107,35 @@ public class DiagnoseUtil {
                 .build();
 
         GalleryFinal.init(coreConfig);
+    }
+
+    private static void initX5() {
+        // 为了提高内核占比，在初始化前可配置允许移动网络下载内核（大小 40-50 MB）。默认移动网络不下载
+        QbSdk.setDownloadWithoutWifi(true);
+
+        QbSdk.initX5Environment(applicationContext, new QbSdk.PreInitCallback() {
+            @Override
+            public void onCoreInitFinished() {
+                // 内核初始化完成
+            }
+
+            /**
+             * 预初始化结束
+             * 由于X5内核体积较大，需要依赖网络动态下发，所以当内核不存在的时候，默认会回调false，此时将会使用系统内核代替
+             * @param isX5 是否使用X5内核
+             */
+            @Override
+            public void onViewInitFinished(boolean isX5) {
+                AppLogger.e("是否使用X5：" + isX5);
+            }
+        });
+
+        // TBS内核首次使用和加载时，ART虚拟机会将Dex文件转为Oat，该过程由系统底层触发且耗时较长，很容易引起anr问题，解决方法是使用TBS的 ”dex2oat优化方案“。
+        // 在调用TBS初始化、创建WebView之前进行如下配置
+        HashMap<String, Object> map = new HashMap<>();
+        map.put(TbsCoreSettings.TBS_SETTINGS_USE_SPEEDY_CLASSLOADER, true);
+        map.put(TbsCoreSettings.TBS_SETTINGS_USE_DEXLOADER_SERVICE, true);
+        QbSdk.initTbsSettings(map);
     }
 
     @Keep

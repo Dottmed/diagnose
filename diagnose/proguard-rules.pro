@@ -73,6 +73,16 @@
 #rtc
 -keep class com.tencent.** { *; }
 
+#X5
+-dontwarn dalvik.**
+-dontwarn com.tencent.smtt.**
+-keep class com.tencent.smtt.** {
+    *;
+}
+-keep class com.tencent.tbs.** {
+    *;
+}
+
 #-------------------------------------------------------------------------
 
 #---------------------------------3.与js互相调用的类------------------------
