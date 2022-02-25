@@ -56,10 +56,11 @@ public class H5Fragment extends BaseFragment {
         settings.setJavaScriptEnabled(true);
         settings.setJavaScriptCanOpenWindowsAutomatically(true); //设置js可以直接打开窗口
 
-        settings.setBuiltInZoomControls(true); //设置显示缩放按钮
-        settings.setSupportZoom(true); // 支持缩放
-        settings.setUseWideViewPort(true);
-        settings.setLoadWithOverviewMode(true);
+        settings.setSupportZoom(false); //是否支持缩放，默认true
+        settings.setBuiltInZoomControls(false); //是否使用WebView内置的缩放组件，由浮动在窗口上的缩放控制和手势缩放控制组成，默认false
+        settings.setDisplayZoomControls(false); //是否显示窗口悬浮的缩放控制，默认true
+        settings.setUseWideViewPort(true); //是否支持ViewPort的meta tag属性，如果页面有ViewPort meta tag 指定的宽度，则使用meta tag指定的值，否则默认使用宽屏的视图窗口
+        settings.setLoadWithOverviewMode(true); //是否启动概述模式浏览界面，当页面宽度超过WebView显示宽度时，缩小页面适应WebView。默认false
 
         settings.setAllowFileAccess(true); //允许访问文件
         settings.setDefaultTextEncodingName("UTF-8");
